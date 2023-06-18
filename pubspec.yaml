@@ -41,6 +41,13 @@ dependencies:
   feather_icons: ^1.2.0
   intl: ^0.18.1
   collection: ^1.17.1
+  camera: ^0.10.5+2
+  image_picker: ^0.8.9
+  path_provider: ^2.0.15
+  cunning_document_scanner: ^1.1.2
+  edge_detection: ^1.1.1
+
+
 
 dev_dependencies:
   flutter_test:
