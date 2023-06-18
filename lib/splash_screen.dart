@@ -27,11 +27,12 @@ class SplashScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
                   width: double.infinity,
-                  color: Theme.of(context).primaryColor,
+                  color: Color(0xFF981F2B),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -42,7 +43,7 @@ class SplashScreen extends StatelessWidget {
                             fontSize: 48,
                             fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       SizedBox(
@@ -55,7 +56,7 @@ class SplashScreen extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       OutlinedButton(
@@ -109,7 +110,7 @@ class SplashScreen extends StatelessWidget {
                 "assets/Thesis-pana.svg",
                 width: constraints.maxWidth,
               ),
-              top: 86,
+              top: 100,
             ),
           ],
         ),

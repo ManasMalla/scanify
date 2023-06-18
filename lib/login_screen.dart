@@ -92,8 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             data: Theme.of(context).copyWith(
                               colorScheme:
                                   Theme.of(context).colorScheme.copyWith(
-                                        secondary: Color(0xFF981f2b),
-                                        primary: Color(0xFF981f2b),
+                                        secondary: const Color(0xFF981f2b),
+                                        primary: const Color(0xFF981f2b),
                                       ),
                             ),
                             child: TextField(
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: GoogleFonts.poppins(),
                               decoration: InputDecoration(
                                   suffixIcon: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.visibility_off,
                                     ),
                                     onPressed: () {
@@ -332,9 +332,10 @@ class _UpdateDisplayNameState extends State<UpdateDisplayName> {
                                 FirebaseAuth.instance.currentUser
                                     ?.updateDisplayName(nameController.text)
                                     .then((value) {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const DashboardScreen()));
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const DashboardScreen()));
                                 });
                               } catch (e) {
                                 setState(() {

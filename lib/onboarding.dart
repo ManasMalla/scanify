@@ -29,9 +29,9 @@ class Onboarding extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Container(
-                  color: Color(0xFF981F2B),
+                  color: const Color(0xFF981F2B),
                   padding: const EdgeInsets.symmetric(
                       horizontal: 32.0, vertical: 48.0),
                   child: Column(
@@ -53,7 +53,7 @@ class Onboarding extends StatelessWidget {
                               color: Colors.white.withOpacity(0.7)),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                       Padding(
@@ -68,21 +68,21 @@ class Onboarding extends StatelessWidget {
                                   return ClipOval(
                                     child: Container(
                                       color: dotIndex == index
-                                          ? Color(0xFFFFFFFF)
-                                          : Color(0x50FFFFFF),
+                                          ? const Color(0xFFFFFFFF)
+                                          : const Color(0x50FFFFFF),
                                       height: 8,
                                       width: 8,
                                     ),
                                   );
                                 },
                                 separatorBuilder: (context, _) {
-                                  return SizedBox(
+                                  return const SizedBox(
                                     width: 12,
                                   );
                                 },
-                                itemCount: 5),
+                                itemCount: 4),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 24,
                       ),
                     ],
@@ -91,7 +91,7 @@ class Onboarding extends StatelessWidget {
               ],
             ),
             Positioned(
-              bottom: 340,
+              bottom: index == 0 ? 360 : 310,
               child: SvgPicture.asset(
                 image,
                 width: constraints.maxWidth,
@@ -101,13 +101,13 @@ class Onboarding extends StatelessWidget {
               bottom: 280,
               right: 16,
               child: FloatingActionButton(
-                shape: CircleBorder(),
-                backgroundColor: Color(0xFFFFAC00),
+                shape: const CircleBorder(),
+                backgroundColor: const Color(0xFFFFAC00),
                 foregroundColor: Colors.white,
                 onPressed: () {
                   onNext();
                 },
-                child: Icon(Icons.chevron_right),
+                child: const Icon(Icons.chevron_right),
               ),
             ),
           ],
@@ -157,8 +157,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           pageIndex,
           onNext: () {
             if (pageIndex == 3) {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => LoginScreen()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()));
             } else {
               pageController.nextPage(
                   duration: const Duration(milliseconds: 500),
