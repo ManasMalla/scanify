@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:collection/collection.dart';
 import 'package:feather_icons/feather_icons.dart';
 import 'package:firebase_auth/firebase_auth.dart';

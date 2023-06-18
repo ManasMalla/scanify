@@ -1,10 +1,25 @@
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+import 'package:cunning_document_scanner/cunning_document_scanner.dart';
+import 'package:edge_detection/edge_detection.dart';
+
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:scanify/image_crop.dart';
+
+CameraController? _cameraController;
+XFile? _capturedImage;
+List<File> _scannedImages = [];
 
 class ScannerPage extends StatefulWidget {
-  const ScannerPage({super.key});
+  const ScannerPage({
+    super.key,
+  });
+  // final CameraDescription camera;
 
   @override
   State<ScannerPage> createState() => _ScannerPageState();
@@ -15,17 +30,46 @@ enum ScannerState { CAPTURE, WARNING, ERROR }
 class _ScannerPageState extends State<ScannerPage> {
   var state = ScannerState.CAPTURE;
 
+  Future<void> _initializeCamera() async {
+    final cameras = await availableCameras();
+    print(cameras);
+    print('hoalaaaaaaa');
+    final firstCamera = cameras.first;
+
+    _cameraController = CameraController(
+      firstCamera,
+      ResolutionPreset.high,
+      enableAudio: false,
+    );
+
+    await _cameraController!.initialize();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // _cameraController!.startImageStream((image) {
+    //   print(image);
+    // });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            "assets/scanner.jpg",
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-          ),
+          // Image.asset(
+          //   "assets/scanner.jpg",
+          //   fit: BoxFit.cover,
+          //   height: double.infinity,
+          //   width: double.infinity,
+          // ),
+          FutureBuilder(
+              future: _initializeCamera(),
+              builder: (context, _) {
+                return CameraPreview(_cameraController!);
+              }),
           AnimatedSwitcher(
             duration: Duration(milliseconds: 300),
             child: state == ScannerState.WARNING
@@ -100,21 +144,40 @@ class _ScannerPageState extends State<ScannerPage> {
                         ),
                       ],
                     ),
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.black.withOpacity(0.5),
-                          border: Border.all(
-                              width: 4,
-                              color: Colors.white.withOpacity(0.5),
-                              strokeAlign: BorderSide.strokeAlignOutside)),
+                    InkWell(
+                      onTap: () async {
+                        String name =
+                            DateTime.now().millisecondsSinceEpoch.toString();
+                        Directory directory =
+                            await getApplicationDocumentsDirectory();
+                        XFile capture = await _cameraController!.takePicture();
+                        await capture.saveTo(directory.path + '$name.jpeg');
+                        // final imagesPath =
+
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => CropScreen(
+                        //           path: directory.path + '$name.jpeg'),
+                        //     ));
+                        // EdgeDetection
+                      },
                       child: Container(
-                        margin: const EdgeInsets.all(6),
+                        width: 64,
+                        height: 64,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.white.withOpacity(0.5)),
+                            color: Colors.black.withOpacity(0.5),
+                            border: Border.all(
+                                width: 4,
+                                color: Colors.white.withOpacity(0.5),
+                                strokeAlign: BorderSide.strokeAlignOutside)),
+                        child: Container(
+                          margin: const EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.white.withOpacity(0.5)),
+                        ),
                       ),
                     ),
                     Container(
