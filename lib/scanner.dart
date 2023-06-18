@@ -1,5 +1,6 @@
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ScannerPage extends StatefulWidget {
@@ -9,7 +10,11 @@ class ScannerPage extends StatefulWidget {
   State<ScannerPage> createState() => _ScannerPageState();
 }
 
+enum ScannerState { CAPTURE, WARNING, ERROR }
+
 class _ScannerPageState extends State<ScannerPage> {
+  var state = ScannerState.CAPTURE;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +26,29 @@ class _ScannerPageState extends State<ScannerPage> {
             height: double.infinity,
             width: double.infinity,
           ),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: state == ScannerState.WARNING
+                ? Container(
+                    color: Color(0x40FBC000),
+                    padding: EdgeInsets.all(24),
+                    child:
+                        Center(child: SvgPicture.asset("assets/warning.svg")),
+                  )
+                : SizedBox(),
+          ),
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 300),
+            child: state == ScannerState.ERROR
+                ? Container(
+                    color: Color(0x50981F2B),
+                    padding: EdgeInsets.all(24),
+                    child: Center(child: SvgPicture.asset("assets/error.svg")),
+                  )
+                : SizedBox(),
+          ),
           Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(36.0),
             child: Column(
               children: [
                 const Spacer(),
@@ -111,5 +137,27 @@ class _ScannerPageState extends State<ScannerPage> {
         ],
       ),
     );
+  }
+
+  ///A method to show the warning state when no document can be identified in the screen
+  void showWarning() {
+    state = ScannerState.WARNING;
+    setState(() {});
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        state = ScannerState.CAPTURE;
+      });
+    });
+  }
+
+  ///A method to show the error state when the taken page was unsuccessful
+  void showError() {
+    state = ScannerState.ERROR;
+    setState(() {});
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        state = ScannerState.CAPTURE;
+      });
+    });
   }
 }
