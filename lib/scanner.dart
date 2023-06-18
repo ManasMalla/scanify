@@ -162,15 +162,9 @@ class _ScannerPageState extends State<ScannerPage> {
                             modelPath: 'flutter_assets/assets/model.tflite');
                         final imagelabeler = ImageLabeler(options: options);
                         final prediction = imagelabeler.processImage(
-                            InputImage.fromBytes(
-                                bytes: await capture.readAsBytes(),
-                                metadata: InputImageMetadata(
-                                    size: Size.fromWidth(
-                                        MediaQuery.of(context).size.width),
-                                    rotation: InputImageRotation.rotation0deg,
-                                    format: InputImageFormat.bgra8888,
-                                    bytesPerRow:
-                                        (await capture.readAsBytes()).length)));
+                            InputImage.fromFile(
+                                File(directory.path + '$name.jpeg')));
+
                         print(prediction);
                       },
                       child: Container(
