@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 import 'package:edge_detection/edge_detection.dart';
 
 import 'package:feather_icons/feather_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mlkit_image_labeling/google_mlkit_image_labeling.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:scanify/image_crop.dart';
 
 CameraController? _cameraController;
 XFile? _capturedImage;
@@ -153,15 +153,26 @@ class _ScannerPageState extends State<ScannerPage> {
                             await getApplicationDocumentsDirectory();
                         XFile capture = await _cameraController!.takePicture();
                         await capture.saveTo(directory.path + '$name.jpeg');
-                        // final imagesPath =
-
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => CropScreen(
-                        //           path: directory.path + '$name.jpeg'),
-                        //     ));
-                        // EdgeDetection
+                        // final interpreter = Tflite.loadModel(
+                        //     model: 'assets/model.tflite',
+                        //     labels: 'assets/labels.txt');
+                        // final result = await Tflite.runModelOnImage(
+                        //     path: directory.path + '$name.jpeg');
+                        // print(result);
+                        final options = LocalLabelerOptions(
+                            modelPath: 'flutter_assets/assets/model.tflite');
+                        final imagelabeler = ImageLabeler(options: options);
+                        final prediction = imagelabeler.processImage(
+                            InputImage.fromBytes(
+                                bytes: await capture.readAsBytes(),
+                                metadata: InputImageMetadata(
+                                    size: Size.fromWidth(
+                                        MediaQuery.of(context).size.width),
+                                    rotation: InputImageRotation.rotation0deg,
+                                    format: InputImageFormat.bgra8888,
+                                    bytesPerRow:
+                                        (await capture.readAsBytes()).length)));
+                        print(prediction);
                       },
                       child: Container(
                         width: 64,
