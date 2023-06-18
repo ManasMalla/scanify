@@ -37,7 +37,7 @@ class SplashScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Scanify",
+                        "G-Scanify",
                         style: GoogleFonts.poppins(
                             color: Colors.white,
                             fontSize: 48,
@@ -49,7 +49,7 @@ class SplashScreen extends StatelessWidget {
                       SizedBox(
                         width: constraints.maxWidth * 0.7,
                         child: Text(
-                          "Never again let forgetfulness or lack of awareness let you miss upcoming academic events and deadlines",
+                          "Unlocking a world of convenience at your fingertips of scanning, editing, organizing your asssignments, documents and files.",
                           style: GoogleFonts.poppins(
                             color: Colors.white.withOpacity(0.8),
                             fontSize: 16,

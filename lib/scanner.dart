@@ -17,6 +17,7 @@ class _ScannerPageState extends State<ScannerPage> {
 
   @override
   Widget build(BuildContext context) {
+    // showWarning();
     return Scaffold(
       body: Stack(
         children: [

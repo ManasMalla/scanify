@@ -132,11 +132,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     "OCR &\nConvert.",
   ];
   var descriptions = [
-    "View and manage your class schedules, exam dates, and other important academic events",
-    "Receive notifications to remind you about upcoming events, deadlines and other important information",
-    "Set reminders for specific events, lectures, seminars or tasks and balance out your academic life",
-    "Customise your notification preferences and get the work done ahead of time",
-    "Achieve more with GITAM by planning and balancing out your academic life and your passion"
+    "No more skewed angles, faded text, or smudged ink — scan as crisp as if they came straight off a flatbed scanner",
+    "User-friendly interface to crop, edit, tag and organize your scanned documents",
+    "Seamlessly integrated, your documents are securely backed up and easily accessible from any device, anywhere in the world",
+    "Imagine capturing important information on the go, converting physical documents into high-quality digital files",
   ];
   var images = [
     "assets/People search-pana.svg",
