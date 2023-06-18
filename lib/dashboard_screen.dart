@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:scanify/document.dart';
 import 'package:scanify/profile.dart';
+import 'package:scanify/scanner.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -28,18 +29,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       Document(DateTime(2023, 2, 2), "Resume",
           "https://www.my-resume-templates.com/wp-content/uploads/2023/05/student-resume-example.jpg",
           tags: ["Personal"]),
-      Document(DateTime(2023, 6, 12), "Physics of the Impossible",
+      Document(DateTime(2023, 4, 12), "Physics of the Impossible",
           "https://kbimages1-a.akamaihd.net/4d662d77-31d4-4fd4-b8cd-f2f6fa31633b/353/569/90/False/physics-of-the-impossible.jpgg",
           tags: ["Physics"]),
-      Document(DateTime(2023, 6, 5), "Practical UI",
+      Document(DateTime(2023, 4, 5), "Practical UI",
           "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1672686052i/75519891.jpg"),
-      Document(DateTime(2023, 6, 5), "ML with Python",
+      Document(DateTime(2023, 4, 5), "ML with Python",
           "https://www.freetechbooks.com/uploads/1595756320-machine-learning-projects-python%201200x.jpg",
           tags: ["Programming"]),
-      Document(DateTime(2023, 6, 5), "The Prgamatic Programmer",
+      Document(DateTime(2023, 4, 5), "The Prgamatic Programmer",
           "https://images-na.ssl-images-amazon.com/images/I/51W1sBPO7tL._SX380_BO1,204,203,200_.jpg",
           tags: ["Programming"]),
-      Document(DateTime.now(), "The Vedas and Upanishads",
+      Document(DateTime(2023, 4, 18), "The Vedas and Upanishads",
           "https://m.media-amazon.com/images/I/51BVP67BB1L._AC_UF1000,1000_QL80_.jpg",
           tags: ["Mythology"]),
     ];
@@ -62,7 +63,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         .toList();
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => ScannerPage()));
+        },
         shape: const CircleBorder(),
         backgroundColor: const Color(0xFF981F2B),
         child: const Icon(
